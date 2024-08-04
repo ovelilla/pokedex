@@ -26,6 +26,11 @@ class Search {
     this.searchInput.value = "";
     this.onInput("");
   }
+
+  reset() {
+    this.searchInput.value = "";
+    this.onInput("");
+  }
 }
 
 export { Search };

@@ -7,6 +7,7 @@
   gap: 8px;
   height: 32px;
   padding: 0 16px 0 4px;
+  position: relative;
 
   &__icon {
     align-items: center;
@@ -16,6 +17,7 @@
     height: 24px;
     justify-content: center;
     width: 24px;
+    z-index: 40;
 
     img {
       height: 20px;
@@ -23,8 +25,16 @@
     }
   }
 
+  &__text {
+    z-index: 40;
+  }
+
   &--bug {
     background-color: var(--pokemon-bug);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-bug) 100%);
+    }
   }
 
   &--bug-muted {
@@ -34,6 +44,10 @@
   &--dark {
     background-color: var(--pokemon-dark);
     color: var(--text-white);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-dark) 100%);
+    }
   }
 
   &--dark-muted {
@@ -43,6 +57,10 @@
   &--dragon {
     background-color: var(--pokemon-dragon);
     color: var(--text-white);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-dragon) 100%);
+    }
   }
 
   &--dragon-muted {
@@ -51,6 +69,10 @@
 
   &--electric {
     background-color: var(--pokemon-electric);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-electric) 100%);
+    }
   }
 
   &--electric-muted {
@@ -59,6 +81,10 @@
 
   &--fairy {
     background-color: var(--pokemon-fairy);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-fairy) 100%);
+    }
   }
 
   &--fairy-muted {
@@ -68,6 +94,10 @@
   &--fighting {
     background-color: var(--pokemon-fighting);
     color: var(--text-white);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-fighting) 100%);
+    }
   }
 
   &--fighting-muted {
@@ -76,6 +106,10 @@
 
   &--fire {
     background-color: var(--pokemon-fire);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-fire) 100%);
+    }
   }
 
   &--fire-muted {
@@ -84,6 +118,10 @@
 
   &--flying {
     background-color: var(--pokemon-flying);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-flying) 100%);
+    }
   }
 
   &--flying-muted {
@@ -93,6 +131,10 @@
   &--ghost {
     background-color: var(--pokemon-ghost);
     color: var(--text-white);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-ghost) 100%);
+    }
   }
 
   &--ghost-muted {
@@ -101,6 +143,10 @@
 
   &--grass {
     background-color: var(--pokemon-grass);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-grass) 100%);
+    }
   }
 
   &--grass-muted {
@@ -109,6 +155,10 @@
 
   &--ground {
     background-color: var(--pokemon-ground);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-ground) 100%);
+    }
   }
 
   &--ground-muted {
@@ -117,6 +167,10 @@
 
   &--ice {
     background-color: var(--pokemon-ice);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-ice) 100%);
+    }
   }
 
   &--ice-muted {
@@ -125,6 +179,10 @@
 
   &--normal {
     background-color: var(--pokemon-normal);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-normal) 100%);
+    }
   }
 
   &--normal-muted {
@@ -133,6 +191,10 @@
 
   &--poison {
     background-color: var(--pokemon-poison);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-poison) 100%);
+    }
   }
 
   &--poison-muted {
@@ -141,6 +203,10 @@
 
   &--psychic {
     background-color: var(--pokemon-psychic);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-psychic) 100%);
+    }
   }
 
   &--psychic-muted {
@@ -149,6 +215,10 @@
 
   &--rock {
     background-color: var(--pokemon-rock);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-rock) 100%);
+    }
   }
 
   &--rock-muted {
@@ -158,6 +228,10 @@
   &--steel {
     background-color: var(--pokemon-steel);
     color: var(--text-white);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-steel) 100%);
+    }
   }
 
   &--steel-muted {
@@ -166,6 +240,11 @@
 
   &--water {
     background-color: var(--pokemon-water);
+    color: var(--text-white);
+
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, var(--pokemon-water) 100%);
+    }
   }
 
   &--water-muted {

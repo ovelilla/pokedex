@@ -1,8 +1,9 @@
 import { utilsModule } from "../modules/utils.js";
 
 class Filters {
-  constructor({ onChange }) {
+  constructor({ onChange, onReset }) {
     this.onChange = onChange;
+    this.onReset = onReset;
 
     this.filters = document.getElementById("filters");
     this.openFiltersButton = document.getElementById("open-filters-button");
@@ -53,6 +54,7 @@ class Filters {
     });
 
     this.handleInputChanges();
+    this.onReset();
   }
 
   disableScroll() {
@@ -144,7 +146,7 @@ class Filters {
 
       const text = document.createElement("span");
       text.textContent = utilsModule.capitalize(type.name);
-      text.classList.add("filters__container__section__list__item__label__text");
+      text.classList.add("filters__container__section__list__item__label__text", "type__text");
       label.appendChild(text);
     });
   }

@@ -18,6 +18,10 @@
     <link rel="stylesheet/less" type="text/css" href="less/styles.less" />
   </head>
 
+  <!-- se duplican o triplican los pokemons conforme se seleccionan filtros -->
+  <!-- cuando haces sort y luego filtras, el sort se pierde -->
+  <!-- modal para mostrar detalles de un pokemon -->
+
   <body class="light">
     <header class="header header--light">
       <div class="header__container">
@@ -74,17 +78,11 @@
 
           <button
             aria-label="Toggle theme"
-            class="header__container__actions__theme-toggle icon-button icon-button--ghost"
+            class="theme-toggle icon-button icon-button--ghost"
             id="theme-toggle-button"
           >
-            <i
-              class="header__container__actions__theme-toggle__icon header__container__actions__theme-toggle__icon--dark"
-              data-lucide="moon"
-            ></i>
-            <i
-              class="header__container__actions__theme-toggle__icon header__container__theme-toggle__icon--light"
-              data-lucide="sun"
-            ></i>
+            <i class="theme-toggle__icon theme-toggle__icon--dark" data-lucide="moon"></i>
+            <i class="theme-toggle__icon theme-toggle__icon--light" data-lucide="sun"></i>
           </button>
         </div>
       </div>

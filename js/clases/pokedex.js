@@ -17,6 +17,7 @@ class Pokedex {
 
     this.filters = new Filters({
       onChange: this.handleFilterChange.bind(this),
+      onReset: this.handlerFilterReset.bind(this),
     });
     this.loader = new Loader();
     this.loadMore = new LoadMore({
@@ -153,7 +154,7 @@ class Pokedex {
 
         const image = document.createElement("img");
         image.src = `./assets/types/${type.type.name}-color.svg`;
-        image.alt = `${type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)} type`;
+        image.alt = `${utilsModule.capitalize(type.type.name)} type`;
         image.classList.add(
           "pokemon-list__pokemon__info__types__type__icon__image",
           `type__icon--${type.type.name}`
@@ -161,8 +162,8 @@ class Pokedex {
         icon.appendChild(image);
 
         const text = document.createElement("span");
-        text.textContent = type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1);
-        text.classList.add("pokemon-list__pokemon__info__types__type__text");
+        text.textContent = utilsModule.capitalize(type.type.name);
+        text.classList.add("pokemon-list__pokemon__info__types__type__text", "type__text");
         typeItem.appendChild(text);
       });
 
@@ -170,12 +171,19 @@ class Pokedex {
       sprite.classList.add("pokemon-list__pokemon__sprite", `type--${pokemon.types[0].type.name}`);
       li.appendChild(sprite);
 
+      const bgImg = document.createElement("img");
+      bgImg.src = `./assets/types/${pokemon.types[0].type.name}.svg`;
+      bgImg.alt = `${utilsModule.capitalize(pokemon.types[0].type.name)} type background`;
+      bgImg.classList.add("pokemon-list__pokemon__sprite__bg");
+      sprite.appendChild(bgImg);
+
       const img = document.createElement("img");
       img.src = pokemon.sprites.other["official-artwork"].front_default;
       img.alt = pokemon.name;
       img.width = 128;
       img.height = 128;
       img.loading = "lazy";
+      img.classList.add("pokemon-list__pokemon__sprite__image");
       sprite.appendChild(img);
     });
   }
@@ -235,6 +243,10 @@ class Pokedex {
     this.cleanPokemons();
     this.renderPokemons(this.detailedPokemons);
     this.updateLoadMoreButton(this.filteredPokemons);
+  }
+
+  async handlerFilterReset() {
+    this.search.reset();
   }
 
   getIdFromUrl(url) {

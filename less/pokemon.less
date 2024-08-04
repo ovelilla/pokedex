@@ -42,19 +42,47 @@
     }
 
     &__sprite {
-      display: flex;
       align-items: center;
-      justify-content: center;
       border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
       padding: 16px;
+      position: relative;
 
-      img {
+      &::before {
+        content: "";
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 20;
+      }
+
+      &__bg {
         height: 96px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
         width: 96px;
+        z-index: 10;
 
         @media (min-width: @screenMd) {
           height: 128px;
           width: 128px;
+        }
+      }
+
+      &__image {
+        height: 80px;
+        width: 80px;
+        z-index: 30;
+
+        @media (min-width: @screenMd) {
+          height: 112px;
+          width: 112px;
         }
       }
     }
