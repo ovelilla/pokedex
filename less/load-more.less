@@ -1,0 +1,24 @@
+.load-more {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__button {
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__loader {
+    display: none;
+    width: 80px;
+    height: 80px;
+    animation: rotate 0.66s linear infinite, scale 1s linear both infinite;
+
+    &--visible {
+      display: flex;
+    }
+  }
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A Pokedex web app built with HTML, LESS, and JavaScript by Oscar Velilla"
+    />
+    <title>Pokedex</title>
+    <link rel="icon" type="image/svg+xml" href="assets/pokeball.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet/less" type="text/css" href="less/styles.less" />
+  </head>
+
+  <body class="light">
+    <header class="header header--light">
+      <div class="header__container">
+        <div class="header__container__logo">
+          <a href="/" class="header__container__logo__link">
+            <img
+              alt="Logo"
+              class="header__container__logo__link__img"
+              height="48"
+              loading="lazy"
+              src="assets/logo.svg"
+              width="130"
+            />
+          </a>
+        </div>
+
+        <section class="search" id="search">
+          <div class="search__field">
+            <i class="search__field__icon" data-lucide="search"></i>
+            <input
+              aria-label="Search for a Pokemon"
+              class="search__field__input"
+              id="search-input"
+              name="search"
+              placeholder="Search for a Pokemon"
+              type="text"
+            />
+          </div>
+
+          <button class="search__close icon-button icon-button--ghost" id="close-search-button">
+            <i data-lucide="x"></i>
+          </button>
+        </section>
+
+        <div class="header__container__actions">
+          <button
+            aria-label="Search"
+            class="header__container__actions__search icon-button icon-button--ghost"
+            id="open-search-button"
+          >
+            <i class="header__container__actions__search__icon" data-lucide="search"></i>
+          </button>
+
+          <button
+            aria-label="Filters"
+            class="header__container__actions__filter icon-button icon-button--ghost"
+            id="open-filters-button"
+          >
+            <i
+              class="header__container__actions__filter__icon"
+              data-lucide="sliders-horizontal"
+            ></i>
+          </button>
+
+          <button
+            aria-label="Toggle theme"
+            class="header__container__actions__theme-toggle icon-button icon-button--ghost"
+            id="theme-toggle-button"
+          >
+            <i
+              class="header__container__actions__theme-toggle__icon header__container__actions__theme-toggle__icon--dark"
+              data-lucide="moon"
+            ></i>
+            <i
+              class="header__container__actions__theme-toggle__icon header__container__theme-toggle__icon--light"
+              data-lucide="sun"
+            ></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="content__container">
+        <aside class="filters" id="filters">
+          <div class="filters__container">
+            <div class="filters__container__header">
+              <h3 class="filters__container__header__title">
+                <span>Filters</span>
+                <i
+                  class="filters__container__header__title__icon"
+                  data-lucide="sliders-horizontal"
+                ></i>
+              </h3>
+              <button
+                class="filters__container__header__close icon-button icon-button--ghost"
+                id="close-filters-button"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+
+            <div class="filters__container__section">
+              <h4 class="filters__container__section__title">Types</h4>
+              <ul
+                class="filters__container__section__list filters__container__section__list--types"
+                id="filters-type-list"
+              ></ul>
+            </div>
+
+            <div class="filters__container__section">
+              <h4 class="filters__container__section__title">Colors</h4>
+              <ul
+                class="filters__container__section__list filters__container__section__list--colors"
+                id="filters-color-list"
+              ></ul>
+            </div>
+
+            <div class="filters__container__section">
+              <h4 class="filters__container__section__title">Gender</h4>
+              <ul
+                class="filters__container__section__list filters__container__section__list--gender"
+                id="filters-gender-list"
+              ></ul>
+            </div>
+
+            <button
+              class="filters__container__reset button button--primary"
+              id="reset-filters-button"
+            >
+              <i class="button__icon" data-lucide="rotate-ccw"></i>
+              <span> Reset Filters</span>
+            </button>
+          </div>
+        </aside>
+
+        <main class="content__container__main">
+          <ul class="pokemon-list" id="pokemon-list"></ul>
+
+          <div class="load-more">
+            <button class="load-more__button button button--outline button" id="load-more-button">
+              <i class="button__icon" data-lucide="plus"></i>
+              <span>Load More</span>
+            </button>
+            <div class="load-more__loader" id="load-more-loader">
+              <img
+                alt="Loading"
+                class="load-more__loader__img"
+                height="80"
+                loading="lazy"
+                src="assets/pokeball.svg"
+                width="80"
+              />
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer__container">
+        <p class="footer__container__credits">
+          Responsive Pokedex developed by Oscar Velilla with ❤️ for SEAT:CODE
+        </p>
+      </div>
+    </footer>
+
+    <div class="loader loader--show" id="loader">
+      <img alt="Loading" class="loader__img" height="104" src="assets/pokeball.svg" width="104" />
+    </div>
+
+    <script src="js/vendors/less.min.js" defer></script>
+    <script src="js/vendors/lucide.min.js" defer></script>
+    <script src="js/main.js" type="module" defer></script>
+  </body>
+</html>

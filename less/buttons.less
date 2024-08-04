@@ -1,0 +1,53 @@
+.button {
+  align-items: center;
+  background-color: transparent;
+  border-radius: 48px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  font-weight: 500;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  padding: 0 16px;
+
+  &--primary {
+    background-color: var(--primary-button-background);
+    color: var(--white);
+  }
+
+  &--outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-button-background);
+    color: var(--primary-button-background);
+  }
+
+  &--full {
+    width: 100%;
+  }
+
+  &__icon {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.icon-button {
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+
+  &--ghost {
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--ghost-button-background);
+    }
+  }
+}

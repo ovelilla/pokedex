@@ -1,0 +1,22 @@
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 120;
+  background-color: var(--main-background);
+  justify-content: center;
+  align-items: center;
+  display: none;
+
+  &--show {
+    display: flex;
+  }
+
+  &__img {
+    animation: rotate 0.66s linear infinite, scale 1s linear both infinite;
+    height: 104px;
+    width: 104px;
+  }
+}

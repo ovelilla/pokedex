@@ -1,0 +1,53 @@
+// body > :not(#loader) {
+//   visibility: hidden;
+// }
+
+body {
+  background-color: var(--main-background);
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  min-height: 100dvh;
+
+  &.no-scroll {
+    height: 100%;
+    left: 0;
+    overflow-y: scroll;
+    position: fixed;
+    width: 100%;
+  }
+
+  &.no-scroll-disabled {
+    height: 100%;
+    left: 0;
+    overflow-y: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
+  &.no-transitions * {
+    transition: none !important;
+  }
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+
+  &__container {
+    display: flex;
+    flex: 1;
+    gap: 16px;
+    max-width: @maxWidth;
+    padding: 16px 16px 0 16px;
+
+    &__main {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 16px;
+    }
+  }
+}
