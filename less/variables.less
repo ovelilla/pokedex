@@ -5,6 +5,8 @@
 @screenLg: 1024px;
 @screenXl: 1280px;
 
+@border-dark: #475569;
+@border-light: #e2e8f0;
 @container-background-dark: #1e293b;
 @container-background-light: #f8fafc;
 @gender-icon-background-dark: #475569;
@@ -127,6 +129,7 @@
 }
 
 .light {
+  --border: @border-light;
   --container-background: @container-background-light;
   --gender-icon-background: @gender-icon-background-light;
   --ghost-button-background: @ghost-button-background-light;
@@ -161,6 +164,7 @@
 }
 
 .dark {
+  --border: @border-dark;
   --container-background: @container-background-dark;
   --gender-icon-background: @gender-icon-background-dark;
   --ghost-button-background: @ghost-button-background-dark;

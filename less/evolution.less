@@ -1,0 +1,61 @@
+.evolution {
+  border-radius: 128px;
+  display: flex;
+  overflow: hidden;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 4px;
+    padding: 8px 16px;
+
+    &__number {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    &__title {
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    &__types {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      margin-top: auto;
+    }
+  }
+
+  &__sprite {
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    flex-shrink: 0;
+    height: 88px;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    width: 88px;
+
+    &__bg {
+      height: 64px;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      z-index: 10;
+    }
+
+    &__image {
+      height: 56px;
+      width: 56px;
+      z-index: 30;
+    }
+  }
+}

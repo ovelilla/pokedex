@@ -1,10 +1,12 @@
-// Clases
+// Classes
 import { Filters } from "./filters.js";
 import { Loader } from "./loader.js";
 import { LoadMore } from "./load-more.js";
+import { Pokemon } from "./pokemon.js";
 import { Search } from "./search.js";
 // Modules
 import { utilsModule } from "../modules/utils.js";
+import { fetcherModule } from "../modules/fetcher.js";
 
 class Pokedex {
   constructor({ limit }) {
@@ -34,7 +36,8 @@ class Pokedex {
     this.loader.show();
 
     await this.filters.init();
-    this.allPokemons = await this.fetchPokemons();
+
+    this.allPokemons = await fetcherModule.fetPokedexByName("national");
     this.filteredPokemons = this.allPokemons;
     this.detailedPokemons = await this.fetchDetailedPokemons({
       pokemons: this.allPokemons,
@@ -49,65 +52,14 @@ class Pokedex {
     this.renderPokemons(this.detailedPokemons);
   }
 
-  async fetchPokemons() {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokedex/national`);
-      const data = await response.json();
-      return data.pokemon_entries.map((pokemon) => pokemon.pokemon_species);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async fetchPokemonsByType(type) {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
-      const data = await response.json();
-      return data.pokemon.map((pokemon) => pokemon.pokemon);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async fetchPokemonsByColor(color) {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon-color/${color}`);
-      const data = await response.json();
-      return data.pokemon_species;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async fetchPokemonsByGender(gender) {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/gender/${gender}`);
-      const data = await response.json();
-      return data.pokemon_species_details.map((pokemon) => pokemon.pokemon_species);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   async fetchDetailedPokemons({ pokemons, offset, limit }) {
     try {
-      const promises = pokemons.slice(offset, offset + limit).map(async (pokemon) => {
-        const id = this.getIdFromUrl(pokemon.url);
-        const detail = await this.fetchDetailedPokemon(id);
-        return detail;
-      });
-
-      return await Promise.all(promises);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async fetchDetailedPokemon(id) {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-      const data = await response.json();
-      return data;
+      const promises = pokemons
+        .slice(offset, offset + limit)
+        .map((pokemon) => fetcherModule.fetchPokemonById(utilsModule.getIdFromUrl(pokemon.url)));
+      const detailedPokemons = await Promise.all(promises);
+      const cleanedPokemons = detailedPokemons.filter((pokemon) => Boolean(pokemon));
+      return cleanedPokemons;
     } catch (error) {
       console.error(error);
     }
@@ -116,75 +68,18 @@ class Pokedex {
   renderPokemons(pokemons) {
     const pokemonList = document.getElementById("pokemon-list");
 
+    if (!pokemons.length) {
+      const noResults = document.createElement("p");
+      noResults.textContent = "No items found...";
+      noResults.classList.add("pokemon-list__no-results");
+      pokemonList.appendChild(noResults);
+      return;
+    }
+
     pokemons.forEach((pokemon) => {
-      const li = document.createElement("li");
-      li.classList.add("pokemon-list__pokemon", `type--${pokemon.types[0].type.name}-muted`);
-      pokemonList.appendChild(li);
-
-      const info = document.createElement("div");
-      info.classList.add("pokemon-list__pokemon__info");
-      li.appendChild(info);
-
-      const number = document.createElement("span");
-      number.textContent = `No. ${utilsModule.padNumber(pokemon.id, 3)}`;
-      number.classList.add("pokemon-list__pokemon__info__number");
-      info.appendChild(number);
-
-      const title = document.createElement("h2");
-      title.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-      title.classList.add("pokemon-list__pokemon__info__title");
-      info.appendChild(title);
-
-      const types = document.createElement("ul");
-      types.classList.add("pokemon-list__pokemon__info__types");
-      info.appendChild(types);
-
-      pokemon.types.forEach((type) => {
-        const typeItem = document.createElement("li");
-        typeItem.classList.add(
-          "pokemon-list__pokemon__info__types__type",
-          "type",
-          `type--${type.type.name}`
-        );
-        types.appendChild(typeItem);
-
-        const icon = document.createElement("span");
-        icon.classList.add("pokemon-list__pokemon__info__types__type__icon", "type__icon");
-        typeItem.appendChild(icon);
-
-        const image = document.createElement("img");
-        image.src = `./assets/types/${type.type.name}-color.svg`;
-        image.alt = `${utilsModule.capitalize(type.type.name)} type`;
-        image.classList.add(
-          "pokemon-list__pokemon__info__types__type__icon__image",
-          `type__icon--${type.type.name}`
-        );
-        icon.appendChild(image);
-
-        const text = document.createElement("span");
-        text.textContent = utilsModule.capitalize(type.type.name);
-        text.classList.add("pokemon-list__pokemon__info__types__type__text", "type__text");
-        typeItem.appendChild(text);
-      });
-
-      const sprite = document.createElement("div");
-      sprite.classList.add("pokemon-list__pokemon__sprite", `type--${pokemon.types[0].type.name}`);
-      li.appendChild(sprite);
-
-      const bgImg = document.createElement("img");
-      bgImg.src = `./assets/types/${pokemon.types[0].type.name}.svg`;
-      bgImg.alt = `${utilsModule.capitalize(pokemon.types[0].type.name)} type background`;
-      bgImg.classList.add("pokemon-list__pokemon__sprite__bg");
-      sprite.appendChild(bgImg);
-
-      const img = document.createElement("img");
-      img.src = pokemon.sprites.other["official-artwork"].front_default;
-      img.alt = pokemon.name;
-      img.width = 128;
-      img.height = 128;
-      img.loading = "lazy";
-      img.classList.add("pokemon-list__pokemon__sprite__image");
-      sprite.appendChild(img);
+      const pokemonInstance = new Pokemon({ pokemon });
+      const pokemonElement = pokemonInstance.renderPokemon();
+      pokemonList.appendChild(pokemonElement);
     });
   }
 
@@ -220,37 +115,55 @@ class Pokedex {
   }
 
   async handleFilterChange(checkedFilters) {
-    const allPokemons = (
-      await Promise.all([
-        ...checkedFilters.types.map((type) => this.fetchPokemonsByType(type)),
-        ...checkedFilters.colors.map((color) => this.fetchPokemonsByColor(color)),
-        ...checkedFilters.genders.map((gender) => this.fetchPokemonsByGender(gender)),
-      ])
-    ).flat();
+    const { types, colors, genders } = checkedFilters;
 
-    const sortedPokemons = allPokemons.sort(
-      (a, b) => this.getIdFromUrl(a.url) - this.getIdFromUrl(b.url)
-    );
+    const fetchPromises = [
+      ...types.map((type) => fetcherModule.fetchPokemonsByType(type)),
+      ...colors.map((color) => fetcherModule.fetchPokemonsByColor(color)),
+      ...genders.map((gender) => fetcherModule.fetchPokemonsByGender(gender)),
+    ];
 
-    this.filteredPokemons = sortedPokemons.length ? sortedPokemons : this.allPokemons;
+    const allFilteredPokemons = fetchPromises.length
+      ? (await Promise.all(fetchPromises)).flat()
+      : this.allPokemons;
+
+    const uniqueFilteredPokemons = this.getUniquePokemons(allFilteredPokemons);
+    const sortedFilteredPokemons = this.sortPokemonsById(uniqueFilteredPokemons);
+    const searchFilteredPokemons = this.filterPokemonsByName(sortedFilteredPokemons);
+
+    this.filteredPokemons = sortedFilteredPokemons;
 
     this.reset();
     this.detailedPokemons = await this.fetchDetailedPokemons({
-      pokemons: this.filteredPokemons,
+      pokemons: searchFilteredPokemons,
       offset: this.offset,
       limit: this.limit,
     });
     this.cleanPokemons();
     this.renderPokemons(this.detailedPokemons);
-    this.updateLoadMoreButton(this.filteredPokemons);
+    this.updateLoadMoreButton(searchFilteredPokemons);
   }
 
   async handlerFilterReset() {
     this.search.reset();
   }
 
-  getIdFromUrl(url) {
-    return parseInt(url.split("/").filter(Boolean).pop(), 10);
+  getUniquePokemons(pokemons) {
+    return [...new Map(pokemons.map((pokemon) => [pokemon.name, pokemon])).values()];
+  }
+
+  sortPokemonsById(pokemons) {
+    return pokemons.sort(
+      (a, b) => utilsModule.getIdFromUrl(a.url) - utilsModule.getIdFromUrl(b.url)
+    );
+  }
+
+  filterPokemonsByName(pokemons) {
+    const name = this.search.getValue();
+    if (!name) {
+      return pokemons;
+    }
+    return pokemons.filter((pokemon) => pokemon.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   updateLoadMoreButton(filteredPokemons) {

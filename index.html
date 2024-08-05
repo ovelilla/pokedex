@@ -18,10 +18,6 @@
     <link rel="stylesheet/less" type="text/css" href="less/styles.less" />
   </head>
 
-  <!-- se duplican o triplican los pokemons conforme se seleccionan filtros -->
-  <!-- cuando haces sort y luego filtras, el sort se pierde -->
-  <!-- modal para mostrar detalles de un pokemon -->
-
   <body class="light">
     <header class="header header--light">
       <div class="header__container">
@@ -177,8 +173,26 @@
       <img alt="Loading" class="loader__img" height="104" src="assets/pokeball.svg" width="104" />
     </div>
 
+    <div class="modal" id="modal">
+      <div class="modal__container">
+        <button
+          class="modal__container__close icon-button icon-button--ghost"
+          id="close-modal-button"
+        >
+          <i data-lucide="x"></i>
+        </button>
+        <div class="modal__container__header" id="modal-header"></div>
+        <div class="modal__container__body" id="modal-body"></div>
+        <div class="modal__container__footer" id="modal-footer"></div>
+      </div>
+    </div>
+
     <script src="js/vendors/less.min.js" defer></script>
-    <script src="js/vendors/lucide.min.js" defer></script>
+    <script src="js/vendors/lucide.min.js"></script>
+
     <script src="js/main.js" type="module" defer></script>
+    <script>
+      lucide.createIcons();
+    </script>
   </body>
 </html>

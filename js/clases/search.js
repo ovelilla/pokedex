@@ -12,7 +12,12 @@ class Search {
     this.closeSearchButton.addEventListener("click", this.handleCloseSearchClick.bind(this));
   }
 
+  getValue() {
+    return this.searchInput.value;
+  }
+
   handleSearchInput(event) {
+    this.value = event.target.value;
     this.onInput(event.target.value);
   }
 
@@ -30,6 +35,10 @@ class Search {
   reset() {
     this.searchInput.value = "";
     this.onInput("");
+  }
+
+  trigger() {
+    this.onInput(this.value);
   }
 }
 

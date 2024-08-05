@@ -1,0 +1,209 @@
+.modal {
+  align-items: center;
+  background-color: var(--overlay-background);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+  visibility: hidden;
+  width: 100%;
+  z-index: 200;
+
+  &--visible {
+    opacity: 1;
+    transition: opacity 0.3s;
+    visibility: visible;
+
+    .modal__container {
+      transform: translateY(0);
+      transition: transform 0.3s;
+    }
+  }
+
+  &__container {
+    background-color: var(--container-background);
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    overflow: hidden;
+    transform: translateY(-16px);
+    transition: transform 0.3s;
+    width: 100%;
+
+    @media (min-width: @screenSm) {
+      border-radius: 16px;
+      max-width: 480px;
+    }
+
+    &__close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      z-index: 240;
+    }
+
+    &__header {
+      flex-shrink: 0;
+      height: 128px;
+      position: relative;
+
+      @media (min-width: @screenSm) {
+        height: 144px;
+      }
+
+      &__bg {
+        aspect-ratio: 1;
+        border-radius: 50%;
+        bottom: 24px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 200%;
+        z-index: 210;
+      }
+
+      &__sprite {
+        bottom: 0;
+        height: 112px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 112px;
+        z-index: 230;
+
+        @media (min-width: @screenSm) {
+          height: 128px;
+          width: 128px;
+        }
+      }
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      overflow: auto;
+      padding: 16px;
+
+      &__container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &__number {
+          color: var(--text);
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        &__title {
+          color: var(--text);
+          font-size: 32px;
+          font-weight: 600;
+        }
+      }
+
+      &__types {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        list-style: none;
+        margin-top: auto;
+      }
+
+      &__description {
+        color: var(--text);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      &__grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(2, 1fr);
+
+        &__item {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          &__title {
+            align-items: center;
+            color: var(--text);
+            display: flex;
+            font-size: 16px;
+            font-weight: 400;
+            gap: 8px;
+
+            &__icon {
+              height: 18px;
+              width: 18px;
+            }
+          }
+
+          &__value {
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            color: var(--text);
+            display: flex;
+            font-size: 18px;
+            font-weight: 600;
+            justify-content: center;
+            padding: 8px;
+          }
+        }
+      }
+
+      &__damage {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &__title {
+          color: var(--text);
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        &__grid {
+          display: grid;
+          gap: 8px;
+          grid-template-columns: repeat(2, 1fr);
+
+          @media (min-width: @screenSm) {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+      }
+
+      &__evolutions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &__title {
+          color: var(--text);
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        &__row {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        &__separator {
+          align-items: center;
+          display: flex;
+          gap: 8px;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,6 @@
+// Modules
 import { utilsModule } from "../modules/utils.js";
+import { fetcherModule } from "../modules/fetcher.js";
 
 class Filters {
   constructor({ onChange, onReset }) {
@@ -19,11 +21,18 @@ class Filters {
 
     this.types = [];
     this.colors = [];
-    this.gender = [];
+    this.genders = [];
   }
 
   async init() {
-    await Promise.all([this.fetchTypes(), this.fetchColors(), this.fetchGenders()]);
+    const [types, colors, genders] = await Promise.all([
+      fetcherModule.fetchTypes(),
+      fetcherModule.fetchColors(),
+      fetcherModule.fetchGenders(),
+    ]);
+    this.types = types;
+    this.colors = colors;
+    this.genders = genders;
 
     this.renderTypes();
     this.renderColors();
@@ -69,36 +78,6 @@ class Filters {
     window.scrollTo(0, this.scrollPosition);
   }
 
-  async fetchTypes() {
-    try {
-      const response = await fetch("https://pokeapi.co/api/v2/type");
-      const data = await response.json();
-      this.types = data.results;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async fetchColors() {
-    try {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon-color");
-      const data = await response.json();
-      this.colors = data.results;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async fetchGenders() {
-    try {
-      const response = await fetch("https://pokeapi.co/api/v2/gender");
-      const data = await response.json();
-      this.genders = data.results;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   renderTypes() {
     const filtersTypeList = document.getElementById("filters-type-list");
 
@@ -126,27 +105,25 @@ class Filters {
       label.classList.add(
         "filters__container__section__list__item__label",
         "filters__container__section__list__item__label--type",
-        "type",
-        `type--${type.name}`
+        "type-tag",
+        "color--solid",
+        `color--solid--${type.name}`
       );
       li.appendChild(label);
 
       const icon = document.createElement("span");
-      icon.classList.add("filters__container__section__list__item__label__icon", "type__icon");
+      icon.classList.add("type-tag__icon");
       label.appendChild(icon);
 
       const image = document.createElement("img");
       image.src = `./assets/types/${type.name}-color.svg`;
       image.alt = type.name;
-      image.classList.add(
-        "filters__container__section__list__item__label__icon__image",
-        `type__icon--${type.name}`
-      );
+      image.classList.add("type-tag__icon__image");
       icon.appendChild(image);
 
       const text = document.createElement("span");
       text.textContent = utilsModule.capitalize(type.name);
-      text.classList.add("filters__container__section__list__item__label__text", "type__text");
+      text.classList.add("type-tag__text");
       label.appendChild(text);
     });
   }

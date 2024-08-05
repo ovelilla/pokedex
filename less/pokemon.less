@@ -9,9 +9,24 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  &__pokemon {
+  &__no-results {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+}
+
+.pokemon {
+  border-radius: 16px;
+  display: flex;
+
+  &__button {
+    align-items: normal;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
     display: flex;
-    border-radius: 16px;
+    flex: 1;
+    text-align: left;
 
     &__info {
       display: flex;
