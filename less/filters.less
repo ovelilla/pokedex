@@ -43,12 +43,14 @@
     transform: translateX(-50%);
     transition: transform 0.3s;
     width: 288px;
+    overflow: auto;
 
     @media (min-width: @screenLg) {
       border-radius: 16px;
       box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
       height: auto;
       transform: translateX(0);
+      max-height: calc(100dvh - 136px);
     }
 
     &__header {
