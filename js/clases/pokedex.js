@@ -1,5 +1,6 @@
 // Classes
 import { Filters } from "./filters.js";
+import { Layout } from "./layout.js";
 import { Loader } from "./loader.js";
 import { LoadMore } from "./load-more.js";
 import { Pokemon } from "./pokemon.js";
@@ -21,6 +22,7 @@ class Pokedex {
       onChange: this.handleFilterChange.bind(this),
       onReset: this.handlerFilterReset.bind(this),
     });
+    this.layout = new Layout();
     this.loader = new Loader();
     this.loadMore = new LoadMore({
       onClick: this.handleLoadMoreClick.bind(this),
