@@ -1,5 +1,5 @@
 // Classes
-import { Pokedex } from "./clases/pokedex.js";
+import { Pokedex } from "./classes/pokedex.js";
 
 document.addEventListener("DOMContentLoaded", entryPoint);
 
