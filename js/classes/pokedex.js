@@ -101,8 +101,11 @@ class Pokedex {
   }
 
   async handleSearchInput(value) {
-    const filteredPokemons = this.filteredPokemons.filter((pokemon) =>
-      pokemon.name.includes(value.toLowerCase())
+    console.log(this.filteredPokemons);
+    const filteredPokemons = this.filteredPokemons.filter(
+      (pokemon) =>
+        pokemon.name.includes(value.toLowerCase()) ||
+        utilsModule.getIdFromUrl(pokemon.url) === Number(value)
     );
 
     this.reset();
